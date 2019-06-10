@@ -2,7 +2,7 @@
 # shellcheck shell=bash
 
 # shellcheck disable=2155
-declare files=() color=$([[ "$TERM" =~ (^xterm-color$)|(-256color$) ]] &&
+declare tests=() color=$([[ "$TERM" =~ (^xterm-color$)|(-256color$) ]] &&
                          echo true || echo false)
 
 declare ignore_opts=false argv=("$@")
@@ -136,9 +136,9 @@ for ((i = 0, s = $#; i < s; ++i)); do
 			unset -v opt_arg
 		done
 	else
-		files+=("$arg")
+		tests+=("$arg")
 	fi
 done
 unset -v ignore_opts argv i s arg opt optstr j l
 
-readonly files color
+readonly tests color
