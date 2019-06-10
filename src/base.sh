@@ -23,3 +23,5 @@ fi
 #include consts/consts.sh
 
 #include args.sh
+
+#include main.sh
