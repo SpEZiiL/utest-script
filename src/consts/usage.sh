@@ -2,7 +2,7 @@
 # shellcheck shell=bash
 readonly USAGE="\
 usage: $0 <file>...
-    Calls every FILE.
+    Calls every passed down executable FILE and formats the output.
 
     Options:
       -c, --color=<when>  when to color the output (default: auto)
@@ -17,5 +17,4 @@ usage: $0 <file>...
       32  some tests failed
       33  all tests failed
 
-Report bugs to: <$MAILING_ADDRESS>
-Repository: <$REPO_URL>"
+Report bugs at: <$REPO_URL>"
