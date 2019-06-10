@@ -21,3 +21,5 @@ if [[ "$-" == *i* ]]; then
 fi
 
 #include consts/consts.sh
+
+#include args.sh
