@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added ###
 
 * End message, saying how many tests passed and how many failed
+* Total time taken for all tests in output
 
 [Unreleased]: https://github.com/SpEZiiL/utest-script/compare/v0.1.0...develop
 

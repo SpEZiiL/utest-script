@@ -23,8 +23,15 @@ for ((i = 0; i < testc; ++i)); do
 done
 readonly tests_maxl
 
+# $1: time in nanoseconds to be formatted
+_format_time() {
+	awk '{printf "%.2f", $1 / 10**9}' <<< "$1"
+}
+
 declare output=$'Running Tests...\n' passedc=0 failedc=0
 
+# shellcheck disable=2155
+declare start_time=$(date +%s%N)
 for ((i = 0; i < testc; ++i)); do
 	declare test="${tests[i]}"
 
@@ -46,11 +53,15 @@ for ((i = 0; i < testc; ++i)); do
 
 	output+=$'\n'
 done
+# shellcheck disable=2155
+declare end_time=$(date +%s%N)
 
 output+=$'\n'
 output+="$passedc/$testc ${passed_clr}Passed${reset_clr}"
 output+='  |  '
 output+="$failedc/$testc ${failed_clr}Failed${reset_clr}"
+output+=$'\n'
+output+=" Time taken: $(_format_time $((end_time - start_time)))s"
 
 echo "$output"
 
