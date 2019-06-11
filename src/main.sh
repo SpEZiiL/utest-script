@@ -23,7 +23,7 @@ for ((i = 0; i < testc; ++i)); do
 done
 readonly tests_maxl
 
-declare output=$'Running Tests...\n' passedc=0
+declare output=$'Running Tests...\n' passedc=0 failedc=0
 
 for ((i = 0; i < testc; ++i)); do
 	declare test="${tests[i]}"
@@ -41,12 +41,18 @@ for ((i = 0; i < testc; ++i)); do
 		((++passedc))
 	else
 		output+="${failed_clr}Failed${reset_clr} (${failed_clr}${exc}${reset_clr})"
+		((++failedc))
 	fi
 
 	output+=$'\n'
 done
 
-echo -n "$output"
+output+=$'\n'
+output+="$passedc/$testc ${passed_clr}Passed${reset_clr}"
+output+='  |  '
+output+="$failedc/$testc ${failed_clr}Failed${reset_clr}"
+
+echo "$output"
 
 if ((passedc == testc)); then
 	exit 0
