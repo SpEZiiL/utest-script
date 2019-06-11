@@ -42,6 +42,9 @@ First, though, go through this list of important bullet points:
 This project strictly adheres to [Semantic Versioning][semver].
 
 After your done with editing the code, add your change to the
-[CHANGELOG.md](CHANGELOG.md) file.
+[CHANGELOG.md](CHANGELOG.md) file and add your name to the `AUTHOTS` variable in
+the [src/consts/consts.sh](src/consts/consts.sh#L10) file (line 10).  
+All names in this array will be displayed when passing the `--version` option to
+the script.
 
 [semver]: https://semver.org/spec/v2.0.0.html "Semantic Versioning v2.0.0"
