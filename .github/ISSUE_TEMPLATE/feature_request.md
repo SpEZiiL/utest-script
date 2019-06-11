@@ -1,7 +1,10 @@
 ---
 name: Feature Request
 about: Request a new feature or other change
-label: 'enhancement'
+title: ''
+labels: enhancement
+assignees: ''
+
 ---
 
 # Feature/Change Request #
