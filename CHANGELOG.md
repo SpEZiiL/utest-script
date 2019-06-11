@@ -20,4 +20,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Added base script
 
-[v0.1.0]: https://github.com/SpEZiiL/spp/releases/tag/v0.1.0
+[v0.1.0]: https://github.com/SpEZiiL/utest-script/releases/tag/v0.1.0
