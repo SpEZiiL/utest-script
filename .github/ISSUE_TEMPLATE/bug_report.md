@@ -1,10 +1,7 @@
 ---
 name: Bug Report
 about: Report a bug or an error
-title: ''
 labels: bug
-assignees: ''
-
 ---
 
 # Bug/Error Report #
