@@ -13,8 +13,11 @@ if $color; then
 	readonly failed_clr=$'\033[01;91m'
 	readonly passed_clr=$'\033[01;92m'
 	readonly bullet_clr=$'\033[01;94m'
+	readonly stdout_bullet_clr=$'\033[01;94m'
+	readonly stderr_bullet_clr=$'\033[01;91m'
 else
-	readonly reset_clr='' failed_clr='' passed_clr='' bullet_clr=''
+	readonly reset_clr='' failed_clr='' passed_clr='' bullet_clr='' \
+	         stdout_bullet_clr='' stderr_bullet_clr=''
 fi
 
 declare tests_maxl=-1
@@ -47,7 +50,9 @@ for ((i = 0; i < testc; ++i)); do
 	output+=' '
 
 	declare test_output=''
-	test_output+=$("$test" &> >(sed -E s/'^'/"  $bullet_clr>$reset_clr "/g))
+	test_output+=$("$test" \
+	               2> >(sed -E s/'^'/"  $stderr_bullet_clr>$reset_clr "/g) \
+	               1> >(sed -E s/'^'/"  $stdout_bullet_clr>$reset_clr "/g))
 	declare exc=$?
 	if ((exc == 0)); then
 		output+="${passed_clr}Passed${reset_clr}"
@@ -77,7 +82,7 @@ echo "$output"
 
 if ((passedc == testc)); then
 	exit 0
-elif ((passedc != 0)); then
+elif ((passedc > 0)); then
 	exit 32
 else
 	exit 33
