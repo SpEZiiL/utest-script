@@ -44,7 +44,8 @@ _repeat() {
 	echo -n "$string"
 }
 
-declare output="Running ${strong_clr}${testc}${reset_clr} Test$(((testc > 1)) && printf s)..."$'\n' \
+# shellcheck disable=2155
+declare output="Running ${strong_clr}${testc}${reset_clr} Test$( ((testc > 1)) && printf s)..."$'\n' \
         passedc=0 failedc=0
 
 # shellcheck disable=2155
@@ -92,22 +93,24 @@ done
 # shellcheck disable=2155
 declare end_time=$(date +%s%N)
 
-declare passedp=$(awk '{printf "%.0f", $1 / $2 * 100}' <<< "$passedc $testc")
-declare failedp=$(awk '{printf "%.0f", (1 - $1 / $2) * 100}' <<< "$passedc $testc")
+# shellcheck disable=2155
+declare passedp=$(awk '{printf "%.0f", $1 / $2 * 100}' <<< "$passedc $testc") \
+        failedp=$(awk '{printf "%.0f", (1 - $1 / $2) * 100}' <<< "$passedc $testc")
 
 readonly BAR_CHAR='|'
 
 # end message
+output+=$'Done\n\n'
+output+="$(_repeat ' ' $((${#failedc} - ${#passedc})))$passedc/$testc ${passed_clr}Passed${reset_clr} "
+output+="$(_repeat ' ' $((${#failedp} - ${#passedp})))(${passed_clr}${passedp}%${reset_clr}) "
+output+="[${passed_clr}$(_repeat "$BAR_CHAR" $((passedp / 2)))${reset_clr}$(_repeat '.' $((failedp / 2)))]"
 output+=$'\n'
-output+="$passedc/$testc ${passed_clr}Passed${reset_clr} "
-output+="(${passed_clr}${passedp}%${reset_clr}) "
-output+="[${passed_clr}$(_repeat "$BAR_CHAR" $((passedp / 2)))${reset_clr}]"
+output+="$(_repeat ' ' $((${#passedc} - ${#failedc})))$failedc/$testc ${failed_clr}Failed${reset_clr} "
+output+="$(_repeat ' ' $((${#passedp} - ${#failedp})))(${failed_clr}${failedp}%${reset_clr}) "
+output+="[${failed_clr}$(_repeat "$BAR_CHAR" $((failedp / 2)))${reset_clr}$(_repeat '.' $((passedp / 2)))]"
 output+=$'\n'
-output+="$failedc/$testc ${failed_clr}Failed${reset_clr} "
-output+="(${failed_clr}${failedp}%${reset_clr}) "
-output+="[${failed_clr}$(_repeat "$BAR_CHAR" $((failedp / 2)))${reset_clr}]"
-output+=$'\n'
-output+=" Time taken: $(_format_time $((end_time - start_time)))s"
+output+="=== Time taken: $(_format_time $((end_time - start_time)))s ==="
+# yes I know this looks like hell shut up
 
 echo "$output"
 
