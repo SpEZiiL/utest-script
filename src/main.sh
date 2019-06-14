@@ -43,16 +43,27 @@ for ((i = 0; i < testc; ++i)); do
 		silent=true
 	fi
 
-	output+=" $bullet_clr*$reset_clr $test "
-	for ((j = 0, l = (tests_maxl - ${#test}) + 3; j < l; ++j)); do
+	output+=' '
+	declare n=$((i + 1))
+	declare n_str="${bullet_clr}${n})${reset_clr}"
+	for ((j = ${#n}, l = ${#testc}; j < l; ++j)) do
+		n_str="$n_str "
+	done
+	output+="${n_str} ${test} "
+	for ((j = 0, l = (tests_maxl - ${#test}) + 10; j < l; ++j)); do
 		output+='.'
 	done
 	output+=' '
 
+	declare spaces=''
+	for ((j = 0, l = ${#testc}; j < l; ++j)); do
+		spaces+=' '
+	done
+
 	declare test_output=''
 	test_output+=$("$test" \
-	               2> >(sed -E s/'^'/"  $stderr_bullet_clr>$reset_clr "/g) \
-	               1> >(sed -E s/'^'/"  $stdout_bullet_clr>$reset_clr "/g))
+	               2> >(sed -E s/'^'/"$spaces ${stderr_bullet_clr}2>${reset_clr} "/g) \
+	               1> >(sed -E s/'^'/"$spaces ${stdout_bullet_clr}1>${reset_clr} "/g))
 	declare exc=$?
 	if ((exc == 0)); then
 		output+="${passed_clr}Passed${reset_clr}"
