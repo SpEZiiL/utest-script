@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added ###
 
+* `stdout` and `stderr` of test output is saved and outputted
+  * New options `--silent=<file>` and `--silent-all` to disable output for tests
 * End message, saying how many tests passed and how many failed
 * Total time taken for all tests in output
 

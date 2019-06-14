@@ -19,8 +19,10 @@ fi
 
 declare tests_maxl=-1
 for ((i = 0; i < testc; ++i)); do
-	((${#tests[i]} > tests_maxl)) && tests_maxl=${#tests[i]}
+	declare test="${tests[i]:1}"
+	((${#test} > tests_maxl)) && tests_maxl=${#test}
 done
+unset -v test
 readonly tests_maxl
 
 # $1: time in nanoseconds to be formatted
@@ -33,7 +35,10 @@ declare output=$'Running Tests...\n' passedc=0 failedc=0
 # shellcheck disable=2155
 declare start_time=$(date +%s%N)
 for ((i = 0; i < testc; ++i)); do
-	declare test="${tests[i]}"
+	declare test="${tests[i]:1}" silent=false
+	if [ "${tests[i]:0:1}" == s ]; then
+		silent=true
+	fi
 
 	output+=" $bullet_clr*$reset_clr $test "
 	for ((j = 0, l = (tests_maxl - ${#test}) + 3; j < l; ++j)); do
@@ -41,7 +46,8 @@ for ((i = 0; i < testc; ++i)); do
 	done
 	output+=' '
 
-	"$test" &> '/dev/null'
+	declare test_output=''
+	test_output+=$("$test" &> >(sed -E s/'^'/"  $bullet_clr>$reset_clr "/g))
 	declare exc=$?
 	if ((exc == 0)); then
 		output+="${passed_clr}Passed${reset_clr}"
@@ -49,6 +55,10 @@ for ((i = 0; i < testc; ++i)); do
 	else
 		output+="${failed_clr}Failed${reset_clr} (${failed_clr}${exc}${reset_clr})"
 		((++failedc))
+	fi
+
+	if ! $silent_all && ! $silent && [ -n "$test_output" ]; then
+		output+=$'\n'"$test_output"
 	fi
 
 	output+=$'\n'

@@ -3,7 +3,8 @@
 
 # shellcheck disable=2155
 declare tests=() color=$([[ "$TERM" =~ (^xterm-color$)|(-256color$) ]] &&
-                         echo true || echo false)
+                         echo true || echo false) \
+        silent_all=false
 
 declare ignore_opts=false argv=("$@")
 for ((i = 0, s = $#; i < s; ++i)); do
@@ -19,6 +20,26 @@ for ((i = 0, s = $#; i < s; ++i)); do
 		fi
 
 		case "$opt" in
+		silent)
+			if ! [ ${opt_arg+x} ]; then
+				if ((i + 1 < s)); then
+					((++i))
+					opt_arg="${argv[i]}"
+				else
+					echo "$0: --silent: missing argument: <file>"
+					exit 3
+				fi
+			fi
+
+			tests+=("s$opt_arg")
+			;;
+		silent-all)
+			if [ ${opt_arg+x} ]; then
+				echo "$0: --help: too many arguments: 1" >&2
+				exit 4
+			fi
+			silent_all=true
+			;;
 		color)
 			if ! [ ${opt_arg+x} ]; then
 				if ((i + 1 < s)); then
@@ -81,21 +102,21 @@ for ((i = 0, s = $#; i < s; ++i)); do
 			fi
 
 			case "$opt" in
-			h|\?)
-				if [ ${opt_arg+x} ]; then
-					echo "$0: -h: too many arguments: 1" >&2
-					exit 4
+			s)
+				if ! [ ${opt_arg+x} ]; then
+					if [ "$optstr" ]; then
+						opt_arg="$optstr"
+						j=l
+					elif ((i + 1 < s)); then
+						((++i))
+						opt_arg="${argv[i]}"
+					else
+						echo "$0: -s: missing argument: <file>"
+						exit 3
+					fi
 				fi
-				echo "$USAGE"
-				exit 0
-				;;
-			v)
-				if [ ${opt_arg+x} ]; then
-					echo "$0: -v: too many arguments: 1" >&2
-					exit 4
-				fi
-				echo "$VERSION_INFO"
-				exit 0
+
+				tests+=("-$opt_arg")
 				;;
 			c)
 				if ! [ ${opt_arg+x} ]; then
@@ -127,6 +148,22 @@ for ((i = 0, s = $#; i < s; ++i)); do
 					;;
 				esac
 				;;
+			h|\?)
+				if [ ${opt_arg+x} ]; then
+					echo "$0: -h: too many arguments: 1" >&2
+					exit 4
+				fi
+				echo "$USAGE"
+				exit 0
+				;;
+			v)
+				if [ ${opt_arg+x} ]; then
+					echo "$0: -v: too many arguments: 1" >&2
+					exit 4
+				fi
+				echo "$VERSION_INFO"
+				exit 0
+				;;
 			*)
 				echo "$0: -$opt: invalid option" >&2
 				exit 5
@@ -136,9 +173,9 @@ for ((i = 0, s = $#; i < s; ++i)); do
 			unset -v opt_arg
 		done
 	else
-		tests+=("$arg")
+		tests+=("-$arg")
 	fi
 done
-unset -v ignore_opts argv i s arg opt optstr j l
+unset -v ignore_opts argv i s arg opt testc optstr j l
 
-readonly tests color
+readonly tests color silent_all
