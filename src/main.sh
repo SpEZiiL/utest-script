@@ -13,10 +13,11 @@ if $color; then
 	readonly failed_clr=$'\033[01;91m'
 	readonly passed_clr=$'\033[01;92m'
 	readonly bullet_clr=$'\033[01;94m'
+	readonly strong_clr=$'\033[01;93m'
 	readonly stdout_bullet_clr=$'\033[01;94m'
 	readonly stderr_bullet_clr=$'\033[01;91m'
 else
-	readonly reset_clr='' failed_clr='' passed_clr='' bullet_clr='' \
+	readonly reset_clr='' failed_clr='' passed_clr='' bullet_clr='' strong_clr='' \
 	         stdout_bullet_clr='' stderr_bullet_clr=''
 fi
 
@@ -33,7 +34,18 @@ _format_time() {
 	awk '{printf "%.2f", $1 / 10**9}' <<< "$1"
 }
 
-declare output=$'Running Tests...\n' passedc=0 failedc=0
+# $1: string to be repeated
+# $2: how many times to repeat string
+_repeat() {
+	local string=''
+	for ((i = 0; i < $2; ++i)); do
+		string+="$1"
+	done
+	echo -n "$string"
+}
+
+declare output="Running ${strong_clr}${testc}${reset_clr} Test$(((testc > 1)) && printf s)..."$'\n' \
+        passedc=0 failedc=0
 
 # shellcheck disable=2155
 declare start_time=$(date +%s%N)
@@ -43,6 +55,7 @@ for ((i = 0; i < testc; ++i)); do
 		silent=true
 	fi
 
+	# test number and test name
 	output+=' '
 	declare n=$((i + 1))
 	declare n_str="${bullet_clr}${n})${reset_clr}"
@@ -55,15 +68,11 @@ for ((i = 0; i < testc; ++i)); do
 	done
 	output+=' '
 
-	declare spaces=''
-	for ((j = 0, l = ${#testc}; j < l; ++j)); do
-		spaces+=' '
-	done
-
+	# saving test output and adding exit status
 	declare test_output=''
 	test_output+=$("$test" \
-	               2> >(sed -E s/'^'/"$spaces ${stderr_bullet_clr}2>${reset_clr} "/g) \
-	               1> >(sed -E s/'^'/"$spaces ${stdout_bullet_clr}1>${reset_clr} "/g))
+	               2> >(sed -E s/'^'/"$(_repeat ' ' ${#testc}) ${stderr_bullet_clr}2>${reset_clr} "/g) \
+	               1> >(sed -E s/'^'/"$(_repeat ' ' ${#testc}) ${stdout_bullet_clr}1>${reset_clr} "/g))
 	declare exc=$?
 	if ((exc == 0)); then
 		output+="${passed_clr}Passed${reset_clr}"
@@ -73,6 +82,7 @@ for ((i = 0; i < testc; ++i)); do
 		((++failedc))
 	fi
 
+	# adding test output
 	if ! $silent_all && ! $silent && [ -n "$test_output" ]; then
 		output+=$'\n'"$test_output"
 	fi
@@ -82,10 +92,20 @@ done
 # shellcheck disable=2155
 declare end_time=$(date +%s%N)
 
+declare passedp=$(awk '{printf "%.0f", $1 / $2 * 100}' <<< "$passedc $testc")
+declare failedp=$(awk '{printf "%.0f", (1 - $1 / $2) * 100}' <<< "$passedc $testc")
+
+readonly BAR_CHAR='|'
+
+# end message
 output+=$'\n'
-output+="$passedc/$testc ${passed_clr}Passed${reset_clr}"
-output+='  |  '
-output+="$failedc/$testc ${failed_clr}Failed${reset_clr}"
+output+="$passedc/$testc ${passed_clr}Passed${reset_clr} "
+output+="(${passed_clr}${passedp}%${reset_clr}) "
+output+="[${passed_clr}$(_repeat "$BAR_CHAR" $((passedp / 2)))${reset_clr}]"
+output+=$'\n'
+output+="$failedc/$testc ${failed_clr}Failed${reset_clr} "
+output+="(${failed_clr}${failedp}%${reset_clr}) "
+output+="[${failed_clr}$(_repeat "$BAR_CHAR" $((failedp / 2)))${reset_clr}]"
 output+=$'\n'
 output+=" Time taken: $(_format_time $((end_time - start_time)))s"
 
