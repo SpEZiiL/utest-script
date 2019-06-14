@@ -44,12 +44,19 @@ _repeat() {
 	echo -n "$string"
 }
 
-# shellcheck disable=2155
-declare output="Running ${strong_clr}${testc}${reset_clr} Test$( ((testc > 1)) && printf s)..."$'\n' \
-        passedc=0 failedc=0
+# $1: number to make absolute
+_abs() {
+	if [ "${1:0:1}" == - ]; then
+		echo -n "${1:1}"
+	else
+		echo -n "$1"
+	fi
+}
 
 # shellcheck disable=2155
-declare start_time=$(date +%s%N)
+declare output="Running ${strong_clr}${testc}${reset_clr} Test$( ((testc > 1)) && printf s)..."$'\n' \
+        passedc=0 failedc=0 dur=0
+
 for ((i = 0; i < testc; ++i)); do
 	declare test="${tests[i]:1}" silent=false
 	if [ "${tests[i]:0:1}" == s ]; then
@@ -70,18 +77,23 @@ for ((i = 0; i < testc; ++i)); do
 	output+=' '
 
 	# saving test output and adding exit status
-	declare test_output=''
+	# shellcheck disable=2155
+	declare test_output='' test_start_time=$(date +%s%N)
 	test_output+=$("$test" \
 	               2> >(sed -E s/'^'/"$(_repeat ' ' ${#testc}) ${stderr_bullet_clr}2>${reset_clr} "/g) \
 	               1> >(sed -E s/'^'/"$(_repeat ' ' ${#testc}) ${stdout_bullet_clr}1>${reset_clr} "/g))
-	declare exc=$?
+	# shellcheck disable=2155
+	declare exc=$? test_end_time=$(date +%s%N)
 	if ((exc == 0)); then
-		output+="${passed_clr}Passed${reset_clr}"
+		output+="${passed_clr}Passed${reset_clr}       "
 		((++passedc))
 	else
-		output+="${failed_clr}Failed${reset_clr} (${failed_clr}${exc}${reset_clr})"
+		output+="${failed_clr}Failed${reset_clr} (${failed_clr}${exc}${reset_clr}) "
+		output+="$(_repeat ' ' "$(_abs $((${#exc} - 3)))")"
 		((++failedc))
 	fi
+	output+="$(_format_time $((test_end_time - test_start_time)))s"
+	dur=$((dur + $((test_end_time - test_start_time))))
 
 	# adding test output
 	if ! $silent_all && ! $silent && [ -n "$test_output" ]; then
@@ -90,8 +102,6 @@ for ((i = 0; i < testc; ++i)); do
 
 	output+=$'\n'
 done
-# shellcheck disable=2155
-declare end_time=$(date +%s%N)
 
 # shellcheck disable=2155
 declare passedp=$(awk '{printf "%.0f", $1 / $2 * 100}' <<< "$passedc $testc") \
@@ -109,7 +119,7 @@ output+="$(_repeat ' ' $((${#passedc} - ${#failedc})))$failedc/$testc ${failed_c
 output+="$(_repeat ' ' $((${#passedp} - ${#failedp})))(${failed_clr}${failedp}%${reset_clr}) "
 output+="[${failed_clr}$(_repeat "$BAR_CHAR" $((failedp / 2)))${reset_clr}$(_repeat '.' $((passedp / 2)))]"
 output+=$'\n'
-output+="=== Time taken: $(_format_time $((end_time - start_time)))s ==="
+output+="=== Time taken: $(_format_time $dur)s ==="
 # yes I know this looks like hell shut up
 
 echo "$output"

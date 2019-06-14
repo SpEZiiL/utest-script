@@ -13,11 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Amount of tests is shown at the beginning
 * `stdout` and `stderr` of test output is saved and outputted
   * New options `--silent=<file>` and `--silent-all` to disable output for tests
+* Duration of each test is displayed
 * Added end message
   * Displays how many tests passed and how many failed
     * Also shows percentage and graphical bar, making it easier to see the ratio
       of passed to failed tests
-  * Displays the time taken for all tests in total
+  * Displays the time taken for all tests in total (all durations of each test
+    is added together)
 
 [Unreleased]: https://github.com/SpEZiiL/utest-script/compare/v0.1.0...develop
 
