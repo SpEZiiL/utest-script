@@ -12,7 +12,7 @@ A **Bash** script that starts unit tests.
 
 `<script> <file>...`
 
-Add every FILE as a test.
+Add every _FILE_ as a test.
 
 ### Description ###
 
@@ -21,23 +21,23 @@ displayed in a listed format.
 
 ### Options ###
 
-| Option                | Description |
-| :-------------------- | :---------- |
-| `-s, --silent=<file>` | add FILE as test but don't save the output of it |
-| `--silent-all`        | don't save the output of any test |
-| `-c, --color=<when>`  | when to color the output (default: auto) WHEN may be: 'always', 'auto', or 'never' |
-| `-h, --help`          | show this summary and exit |
-| `-v, --version`       | show version and legal information and exit |
+| Option                | Description                                                                           |
+| :-------------------- | :------------------------------------------------------------------------------------ |
+| `-s, --silent=<file>` | add _FILE_ as test but don't save the output of it                                    |
+| `--silent-all`        | don't save the output of any test                                                     |
+| `-c, --color=<when>`  | when to color the output (default: auto). _WHEN_ may be: 'always', 'auto', or 'never' |
+| `-h, --help`          | show this summary and exit                                                            |
+| `-v, --version`       | show version and legal information and exit                                           |
 
 ### Exit Status ###
 
 (using [CommonCodes v1.0.0](https://speziil.github.io/commoncodes/v/1.0.0.html))
 
-| Code | Message           |
-| :--- | :---------------- |
-| 0    | all tests passed  |
-| 32   | some tests failed |
-| 33   | all tests failed  |
+| Code |      Message      |
+| :--: | :---------------: |
+|   0  | all tests passed  |
+|  32  | some tests failed |
+|  33  | all tests failed  |
 
 ## Downloading ##
 
