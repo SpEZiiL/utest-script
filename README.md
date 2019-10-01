@@ -1,36 +1,35 @@
+<!-- markdownlint-disable MD033 -->
+
 # Unit Test Script #
 
-[version_shield]: https://img.shields.io/badge/version-v1.0.1-blue.svg
+[version_shield]: https://img.shields.io/badge/version-v1.0.2-blue.svg
 [latest_release]: https://github.com/mfederczuk/utest-script/releases/latest "Latest Release"
-[![version: v1.0.1][version_shield]][latest_release]
+[![version: v1.0.2][version_shield]][latest_release]
 [![Changelog](https://img.shields.io/badge/-Changelog-blue.svg)](./CHANGELOG.md "Changelog")
 
 ## About ##
 
 A **Bash** script that starts unit tests.
 
-## How To Use ##
+## Usage ##
 
-### Usage ###
-
-`<script> <file>...`
+1. `<script> ([-s] <file>)...`
+2. `<script> --silent-all <file>...`
 
 Add every *FILE* as a test.
-
-### Description ###
 
 Every test is executed and exit code, `stdout` and `stderr` output is saved and
 displayed in a listed format.
 
 ### Options ###
 
-| Option                | Description                                                                           |
-| :-------------------- | :------------------------------------------------------------------------------------ |
-| `-s, --silent=<file>` | add *FILE* as test but don't save the output of it                                    |
-| `--silent-all`        | don't save the output of any test                                                     |
-| `-c, --color=<when>`  | when to color the output (default: auto). *WHEN* may be: 'always', 'auto', or 'never' |
-| `-h, --help`          | show this summary and exit                                                            |
-| `-v, --version`       | show version and legal information and exit                                           |
+| Option                | Description                                                                                 |
+| :-------------------- | :------------------------------------------------------------------------------------------ |
+| `-s, --silent=<file>` | add *FILE* as test but don't save the output of it                                          |
+| `--silent-all`        | don't save the output of any test                                                           |
+| `-c, --color=<when>`  | when to color the output (default: auto). <br/> *WHEN* may be: 'always', 'auto', or 'never' |
+| `-h, --help`          | show this summary and exit                                                                  |
+| `-v, --version`       | show version and legal information and exit                                                 |
 
 ### Exit Status ###
 
