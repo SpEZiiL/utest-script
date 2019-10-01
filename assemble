@@ -16,7 +16,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 if \echo "$-" | \grep -E i; then
-	\echo "assemble.sh: script was called interactively" >&2
+	\echo "assemble: script was called interactively" >&2
 	\return 124
 fi
 

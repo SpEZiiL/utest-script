@@ -52,8 +52,7 @@ repository with
 
 	git clone https://github.com/mfederczuk/utest-script.git
 
-Modify the script however you like and call the [`assemble.sh`](assemble.sh)
-script.  
+Modify the script however you like and call the [`assemble`](assemble) script.  
 Make sure you have [**spp**](https://github.com/mfederczuk/spp) installed.
 
 ## Contributing ##
