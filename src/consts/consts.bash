@@ -3,7 +3,7 @@
 #ignorenext
 # change these variables however you need
 readonly PROGRAM="utest-script"
-readonly VERSION_MAJOR=$((1)) VERSION_MINOR=$((0)) VERSION_PATCH=$((1))
+readonly VERSION_MAJOR=$((1)) VERSION_MINOR=$((0)) VERSION_PATCH=$((2))
 readonly COPYRIGHT_YEARS=('2019') COPYRIGHT_HOLDER='Michael Federczuk'
 readonly LICENSE='GPLv3+' LICENSE_DESC='GNU GPL version 3 or later' \
          LICENSE_URL='https://gnu.org/licenses/gpl.html'
