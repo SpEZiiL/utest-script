@@ -2,14 +2,15 @@
 
 ## Changes ##
 
-* [ ] Bug Fix
-* [ ] New Feature Implementation
-* [ ] Text/Grammer Fix
-* [ ] Documentation
-* [ ] Other: ___
+* [ ] Change or Adjustment Applied
+* [ ] Enhancement or Feature Implementation
+* [ ] Error or Bug Fix
+* [ ] Text or Grammar Fix
+* [ ] Formatting or Style Fix
+* [ ] Other: _____
 
-Closes Issue: ___
+Closes Issue: _____
 
 ## Summary ##
 
-What did you change or add to what files?
+Describe your changes in detail.
