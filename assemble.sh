@@ -25,7 +25,7 @@ if ! command -v 'spp' 1>/dev/null; then
 	exit 48
 fi
 
-basefile='src/base.sh'
+basefile='src/base.bash'
 outfile='test'
 
 echo "Building file '$outfile' ..."

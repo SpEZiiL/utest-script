@@ -25,6 +25,6 @@ if (( ${#AUTHORS[@]} > 1 )); then
 fi
 readonly AUTHORS_LIST
 
-#include usage.sh
+#include usage.bash
 
-#include version-info.sh
+#include version-info.bash
