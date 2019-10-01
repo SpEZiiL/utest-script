@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   same directory would not be mistaken for normal commands in one of the `PATH`
   directories
 
-[v1.0.1]: https://github.com/SpEZiiL/utest-script/compare/v1.0.0...v1.0.1
+[v1.0.1]: https://github.com/mfederczuk/utest-script/compare/v1.0.0...v1.0.1
 
 ## [v1.0.0] - 2019-06-14 ##
 
@@ -31,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Displays the time taken for all tests in total (all durations of each test
     is added together)
 
-[v1.0.0]: https://github.com/SpEZiiL/utest-script/compare/v0.1.0...v1.0.0
+[v1.0.0]: https://github.com/mfederczuk/utest-script/compare/v0.1.0...v1.0.0
 
 ## [v0.1.0] - 2019-06-10 ##
 
@@ -39,4 +39,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Added base script
 
-[v0.1.0]: https://github.com/SpEZiiL/utest-script/releases/tag/v0.1.0
+[v0.1.0]: https://github.com/mfederczuk/utest-script/releases/tag/v0.1.0
