@@ -8,15 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.1] - 2019-06-22 ##
 
+[1.0.1]: https://github.com/mfederczuk/utest-script/compare/v1.0.0...v1.0.1
+
 ### Fixed ###
 
 * Added a `./` prefix to the files being executed so that tests that are in the
   same directory would not be mistaken for normal commands in one of the `PATH`
   directories
 
-[1.0.1]: https://github.com/mfederczuk/utest-script/compare/v1.0.0...v1.0.1
-
 ## [1.0.0] - 2019-06-14 ##
+
+[1.0.0]: https://github.com/mfederczuk/utest-script/compare/v0.1.0...v1.0.0
 
 ### Added ###
 
@@ -31,12 +33,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Displays the time taken for all tests in total (all durations of each test
     is added together)
 
-[1.0.0]: https://github.com/mfederczuk/utest-script/compare/v0.1.0...v1.0.0
-
 ## [0.1.0] - 2019-06-10 ##
+
+[0.1.0]: https://github.com/mfederczuk/utest-script/releases/tag/v0.1.0
 
 ### Added ###
 
 * Added base script
-
-[0.1.0]: https://github.com/mfederczuk/utest-script/releases/tag/v0.1.0
