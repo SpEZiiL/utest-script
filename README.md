@@ -1,6 +1,9 @@
 # Unit Test Script #
 
-![status][status-img] [![version][version-img]][version-link]
+[version_shield]: https://img.shields.io/badge/version-v1.0.1-blue.svg
+[latest_release]: https://github.com/mfederczuk/utest-script/releases/latest "Latest Release"
+[![version: v1.0.1][version_shield]][latest_release]
+[![Changelog](https://img.shields.io/badge/-Changelog-blue.svg)](./CHANGELOG.md "Changelog")
 
 ## About ##
 
@@ -12,7 +15,7 @@ A **Bash** script that starts unit tests.
 
 `<script> <file>...`
 
-Add every _FILE_ as a test.
+Add every *FILE* as a test.
 
 ### Description ###
 
@@ -23,15 +26,15 @@ displayed in a listed format.
 
 | Option                | Description                                                                           |
 | :-------------------- | :------------------------------------------------------------------------------------ |
-| `-s, --silent=<file>` | add _FILE_ as test but don't save the output of it                                    |
+| `-s, --silent=<file>` | add *FILE* as test but don't save the output of it                                    |
 | `--silent-all`        | don't save the output of any test                                                     |
-| `-c, --color=<when>`  | when to color the output (default: auto). _WHEN_ may be: 'always', 'auto', or 'never' |
+| `-c, --color=<when>`  | when to color the output (default: auto). *WHEN* may be: 'always', 'auto', or 'never' |
 | `-h, --help`          | show this summary and exit                                                            |
 | `-v, --version`       | show version and legal information and exit                                           |
 
 ### Exit Status ###
 
-(using [CommonCodes v1.0.0](https://speziil.github.io/commoncodes/v/1.0.0.html))
+(using [CommonCodes v1.0.0](https://mfederczuk.github.io/commoncodes/v/1.0.0.html))
 
 | Code |      Message      |
 | :--: | :---------------: |
@@ -39,19 +42,25 @@ displayed in a listed format.
 |  32  | some tests failed |
 |  33  | all tests failed  |
 
-## Downloading ##
+## Download ##
 
 To get the script, simply download the attached file from one of the
-[releases](https://github.com/SpEZiiL/utest-script/releases).
+[releases](https://github.com/mfederczuk/utest-script/releases).
 
 If you want to make changes to it, download the source code or clone the
-repository with `git clone https://github.com/SpEZiiL/utest-script.git`.  
+repository with
+
+	git clone https://github.com/mfederczuk/utest-script.git
+
 Modify the script however you like and call the [`assemble.sh`](assemble.sh)
 script.  
-Make sure you have [**spp**](https://github.com/SpEZiiL/spp) installed.
+Make sure you have [**spp**](https://github.com/mfederczuk/spp) installed.
 
-<!-- Shields -->
+## Contributing ##
 
-[status-img]: https://img.shields.io/badge/dynamic/json.svg?label=status&url=http%3A%2F%2Fspeziil.ddns.net%2Frepos%2Futest-script.json&query=%24.status&colorB=brightgreen
-[version-img]: https://img.shields.io/badge/dynamic/json.svg?label=version&url=http%3A%2F%2Fspeziil.ddns.net%2Frepos%2Futest-script.json&query=%24.version&colorB=blue
-[version-link]: https://github.com/SpEZiiL/utest-script/releases/latest "Latest version"
+Read through the [Unit Test Script Contribution Guidelines](./CONTRIBUTING.md)
+ if you want to contribute to this project.
+
+## License ##
+
+[GNU GPLv3+](./LICENSE)
