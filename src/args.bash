@@ -72,7 +72,7 @@ for ((i = 0, s = $#; i < s; ++i)); do
 				echo "$0: --help: too many arguments: 1" >&2
 				exit 4
 			fi
-			echo "$USAGE"
+			echo "$HELP"
 			exit 0
 			;;
 		version)

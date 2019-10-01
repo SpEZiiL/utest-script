@@ -27,4 +27,6 @@ readonly AUTHORS_LIST
 
 #include usage.bash
 
+#include help.bash
+
 #include version-info.bash
