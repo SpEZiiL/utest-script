@@ -116,7 +116,7 @@ for ((i = 0, s = $#; i < s; ++i)); do
 					fi
 				fi
 
-				tests+=("-$opt_arg")
+				tests+=("s$opt_arg")
 				;;
 			c)
 				if ! [ ${opt_arg+x} ]; then
