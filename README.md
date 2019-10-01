@@ -6,9 +6,40 @@
 
 A **Bash** script that starts unit tests.
 
-All arguments of the script are files that will be executed.
+## How To Use ##
 
-## Download ##
+### Usage ###
+
+`<script> <file>...`
+
+Add every _FILE_ as a test.
+
+### Description ###
+
+Every test is executed and exit code, `stdout` and `stderr` output is saved and
+displayed in a listed format.
+
+### Options ###
+
+| Option                | Description                                                                           |
+| :-------------------- | :------------------------------------------------------------------------------------ |
+| `-s, --silent=<file>` | add _FILE_ as test but don't save the output of it                                    |
+| `--silent-all`        | don't save the output of any test                                                     |
+| `-c, --color=<when>`  | when to color the output (default: auto). _WHEN_ may be: 'always', 'auto', or 'never' |
+| `-h, --help`          | show this summary and exit                                                            |
+| `-v, --version`       | show version and legal information and exit                                           |
+
+### Exit Status ###
+
+(using [CommonCodes v1.0.0](https://speziil.github.io/commoncodes/v/1.0.0.html))
+
+| Code |      Message      |
+| :--: | :---------------: |
+|   0  | all tests passed  |
+|  32  | some tests failed |
+|  33  | all tests failed  |
+
+## Downloading ##
 
 To get the script, simply download the attached file from one of the
 [releases](https://github.com/SpEZiiL/utest-script/releases).

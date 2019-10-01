@@ -1,3 +1,9 @@
+---
+name: Bug Report
+about: Report a bug or an error
+labels: bug
+---
+
 # Bug/Error Report #
 
 ## Description ##
