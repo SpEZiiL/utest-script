@@ -5,6 +5,7 @@ readonly testc=$((${#tests[@]}))
 
 if (( testc == 0 )); then
 	echo "$0: missing arguments: <file>..." >&2
+	echo "$USAGE"
 	exit 3
 fi
 

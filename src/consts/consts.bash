@@ -3,13 +3,13 @@
 #ignorenext
 # change these variables however you need
 readonly PROGRAM="utest-script"
-readonly VERSION_MAJOR=$((1)) VERSION_MINOR=$((0)) VERSION_PATCH=$((1))
+readonly VERSION_MAJOR=$((1)) VERSION_MINOR=$((0)) VERSION_PATCH=$((2))
 readonly COPYRIGHT_YEARS=('2019') COPYRIGHT_HOLDER='Michael Federczuk'
 readonly LICENSE='GPLv3+' LICENSE_DESC='GNU GPL version 3 or later' \
          LICENSE_URL='https://gnu.org/licenses/gpl.html'
 readonly AUTHORS=('Michael Federczuk')
 readonly MAILING_ADDRESS='federczuk.michael@hotmail.com'
-readonly REPO_URL='https://github.com/SpEZiiL/utest-script'
+readonly REPO_URL='https://github.com/mfederczuk/utest-script'
 
 #ignorenext
 # don't change these variables!
@@ -25,6 +25,8 @@ if (( ${#AUTHORS[@]} > 1 )); then
 fi
 readonly AUTHORS_LIST
 
-#include usage.sh
+#include usage.bash
 
-#include version-info.sh
+#include help.bash
+
+#include version-info.bash

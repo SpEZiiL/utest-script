@@ -1,7 +1,7 @@
 #ignorenext
 # shellcheck shell=bash
-readonly USAGE="\
-usage: $0 <file>...
+readonly HELP="\
+$USAGE
     Add every FILE as a test.
 
     Every test is executed and exit code, stdout and stderr output is saved and
@@ -17,7 +17,7 @@ usage: $0 <file>...
 
     Exit Status:
       (using CommonCodes v1.0.0
-          <https://speziil.github.io/commoncodes/v/1.0.0.html>)
+       <https://mfederczuk.github.io/commoncodes/v/1.0.0.html>)
       0   all tests passed
       32  some tests failed
       33  all tests failed

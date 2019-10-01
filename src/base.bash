@@ -20,8 +20,8 @@ if [[ "$-" == *i* ]]; then
 	\return 124
 fi
 
-#include consts/consts.sh
+#include consts/consts.bash
 
-#include args.sh
+#include args.bash
 
-#include main.sh
+#include main.bash

@@ -27,6 +27,7 @@ for ((i = 0, s = $#; i < s; ++i)); do
 					opt_arg="${argv[i]}"
 				else
 					echo "$0: --silent: missing argument: <file>"
+					echo "$USAGE"
 					exit 3
 				fi
 			fi
@@ -36,6 +37,7 @@ for ((i = 0, s = $#; i < s; ++i)); do
 		silent-all)
 			if [ ${opt_arg+x} ]; then
 				echo "$0: --help: too many arguments: 1" >&2
+				echo "$USAGE"
 				exit 4
 			fi
 			silent_all=true
@@ -72,7 +74,7 @@ for ((i = 0, s = $#; i < s; ++i)); do
 				echo "$0: --help: too many arguments: 1" >&2
 				exit 4
 			fi
-			echo "$USAGE"
+			echo "$HELP"
 			exit 0
 			;;
 		version)
@@ -85,6 +87,7 @@ for ((i = 0, s = $#; i < s; ++i)); do
 			;;
 		*)
 			echo "$0: --$opt: invalid option" >&2
+			echo "$USAGE"
 			exit 5
 			;;
 		esac
@@ -112,11 +115,12 @@ for ((i = 0, s = $#; i < s; ++i)); do
 						opt_arg="${argv[i]}"
 					else
 						echo "$0: -s: missing argument: <file>"
+						echo "$USAGE"
 						exit 3
 					fi
 				fi
 
-				tests+=("-$opt_arg")
+				tests+=("s$opt_arg")
 				;;
 			c)
 				if ! [ ${opt_arg+x} ]; then
@@ -153,7 +157,7 @@ for ((i = 0, s = $#; i < s; ++i)); do
 					echo "$0: -h: too many arguments: 1" >&2
 					exit 4
 				fi
-				echo "$USAGE"
+				echo "$HELP"
 				exit 0
 				;;
 			v)
@@ -166,6 +170,7 @@ for ((i = 0, s = $#; i < s; ++i)); do
 				;;
 			*)
 				echo "$0: -$opt: invalid option" >&2
+				echo "$USAGE"
 				exit 5
 				;;
 			esac
