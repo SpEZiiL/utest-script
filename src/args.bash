@@ -64,7 +64,7 @@ for ((i = 0, s = $#; i < s; ++i)); do
 				;;
 			'never') color=false ;;
 			*)
-				echo "$0: --color: $opt_arg: invalid argument: WHEN may only be: 'always', 'auto' or 'never'" >&2
+				echo "$0: --color: $opt_arg: invalid argument: WHEN must be: 'always', 'auto' or 'never'" >&2
 				exit 7
 				;;
 			esac
