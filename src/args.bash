@@ -26,7 +26,7 @@ for ((i = 0, s = $#; i < s; ++i)); do
 					((++i))
 					opt_arg="${argv[i]}"
 				else
-					echo "$0: --silent: missing argument: <file>"
+					echo "$0: --silent: missing argument: <file>" >&2
 					echo "$USAGE"
 					exit 3
 				fi
@@ -48,7 +48,7 @@ for ((i = 0, s = $#; i < s; ++i)); do
 					((++i))
 					opt_arg="${argv[i]}"
 				else
-					echo "$0: --color: missing argument: <when>"
+					echo "$0: --color: missing argument: <when>" >&2
 					exit 3
 				fi
 			fi
@@ -114,7 +114,7 @@ for ((i = 0, s = $#; i < s; ++i)); do
 						((++i))
 						opt_arg="${argv[i]}"
 					else
-						echo "$0: -s: missing argument: <file>"
+						echo "$0: -s: missing argument: <file>" >&2
 						echo "$USAGE"
 						exit 3
 					fi
@@ -131,7 +131,7 @@ for ((i = 0, s = $#; i < s; ++i)); do
 						((++i))
 						opt_arg="${argv[i]}"
 					else
-						echo "$0: -c: missing argument: <when>"
+						echo "$0: -c: missing argument: <when>" >&2
 						exit 3
 					fi
 				fi
