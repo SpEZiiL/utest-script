@@ -8,7 +8,7 @@ readonly COPYRIGHT_YEARS=('2019' '2020') COPYRIGHT_HOLDER='Michael Federczuk'
 readonly LICENSE='GPLv3+' LICENSE_DESC='GNU GPL version 3 or later' \
          LICENSE_URL='https://gnu.org/licenses/gpl.html'
 readonly AUTHORS=('Michael Federczuk')
-readonly MAILING_ADDRESS='federczuk.michael@hotmail.com'
+readonly MAILING_ADDRESS='federczuk.michael@protonmail.com'
 readonly REPO_URL='https://github.com/mfederczuk/utest-script'
 
 #ignorenext
