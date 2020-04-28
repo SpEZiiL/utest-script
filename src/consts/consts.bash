@@ -15,7 +15,7 @@ readonly REPO_URL='https://github.com/mfederczuk/utest-script'
 # don't change these variables!
 readonly VERSION="$VERSION_MAJOR.$VERSION_MINOR.$VERSION_PATCH"
 readonly COPYRIGHT_YEAR_LATEST="${COPYRIGHT_YEARS[${#COPYRIGHT_YEARS[@]} - 1]}"
-AUTHORS_LIST="${AUTHORS[0]}"
+declare AUTHORS_LIST="${AUTHORS[0]}"
 for (( i = 1, s = ${#AUTHORS[@]} - 1; i < s; ++i )); do
 	AUTHORS_LIST+=", ${AUTHORS[i]}"
 done
