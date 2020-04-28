@@ -54,6 +54,16 @@ _abs() {
 	fi
 }
 
+_exec_test() {
+	local test="$1"
+
+	if [ -n "$command" ]; then
+		"$command" "$test"
+	else
+		./"$test"
+	fi
+}
+
 # shellcheck disable=2155
 declare output="Running ${strong_clr}${testc}${reset_clr} Test$( ((testc > 1)) && printf s)..."$'\n' \
         passedc=0 failedc=0 dur=0
@@ -80,7 +90,7 @@ for ((i = 0; i < testc; ++i)); do
 	# saving test output and adding exit status
 	# shellcheck disable=2155
 	declare test_output='' test_start_time=$(date +%s%N)
-	test_output+=$("./$test" \
+	test_output+=$(_exec_test "./$test" \
 	               2> >(sed -E s/'^'/"$(_repeat ' ' ${#testc}) ${stderr_bullet_clr}2>${reset_clr} "/g) \
 	               1> >(sed -E s/'^'/"$(_repeat ' ' ${#testc}) ${stdout_bullet_clr}1>${reset_clr} "/g))
 	# shellcheck disable=2155

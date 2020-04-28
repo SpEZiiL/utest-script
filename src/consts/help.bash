@@ -10,6 +10,8 @@ $USAGE
     Options:
       -s, --silent=<file>  add FILE as test but don't save the output of it
           --silent-all     don't save the output of any test
+      -m, --command=<cmd>  pass files separately to CMD instead of executing
+                            them
       -c, --color=<when>   when to color the output (default: auto).
                             WHEN must be: 'always', 'auto', or 'never'
       -h, --help           show this summary and exit

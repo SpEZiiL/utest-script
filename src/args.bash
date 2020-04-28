@@ -11,7 +11,8 @@ check_color_support() {
 # shellcheck disable=2155
 declare tests=() \
         color=$(check_color_support) \
-        silent_all=false
+        silent_all=false \
+        command=''
 
 option_silent() {
 	if (($# < 2)); then
@@ -31,6 +32,15 @@ option_silent_all() {
 	fi
 
 	silent_all=true
+}
+
+option_command() {
+	if (($# < 2)); then
+		echo "$0: $1: missing argument: <cmd>" >&2
+		exit 3
+	fi
+
+	command="$2"
 }
 
 option_color() {
@@ -123,6 +133,17 @@ for ((i = 0, s = $#; i < s; ++i)); do
 					option_color "--$opt"
 				fi
 				;;
+			'command')
+				if $has_arg; then
+					option_command "--$opt" "$opt_arg"
+				elif ((i + 1 < s)); then
+					((++i))
+					opt_arg="${argv[i]}"
+					option_command "--$opt" "$opt_arg"
+				else
+					option_command "--$opt"
+				fi
+				;;
 			'help')
 				if $has_arg; then
 					option_help "--$opt" "$opt_arg"
@@ -181,6 +202,19 @@ for ((i = 0, s = $#; i < s; ++i)); do
 						option_color "-$opt"
 					fi
 					;;
+				'm')
+					if [ -n "$optstr" ]; then
+						j=l
+						opt_arg="$optstr"
+						option_command "-$opt" "$opt_arg"
+					elif ((i + 1 < s)); then
+						((++i))
+						opt_arg="${argv[i]}"
+						option_command "-$opt" "$opt_arg"
+					else
+						option_command "-$opt"
+					fi
+					;;
 				'h'|'?')
 					option_help "-$opt"
 					;;
@@ -206,4 +240,4 @@ for ((i = 0, s = $#; i < s; ++i)); do
 done; unset -v i s
 unset -v argv ignore_opts
 
-readonly tests color silent_all
+readonly tests color silent_all command

@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Unreleased]: https://github.com/mfederczuk/utest-script/compare/v1.0.2...develop
 
+### Added ###
+
+* `-m, --command` option
+
 ### Deprecated ###
 
 * `-v` option is replaced with `-V` option
