@@ -2,9 +2,9 @@
 
 # Unit Test Script #
 
-[version_shield]: https://img.shields.io/badge/version-v1.0.2-blue.svg
+[version_shield]: https://img.shields.io/badge/version-v1.1.0-blue.svg
 [latest_release]: https://github.com/mfederczuk/utest-script/releases/latest "Latest Release"
-[![version: v1.0.2][version_shield]][latest_release]
+[![version: v1.1.0][version_shield]][latest_release]
 [![Changelog](https://img.shields.io/badge/-Changelog-blue.svg)](./CHANGELOG.md "Changelog")
 
 ## About ##
