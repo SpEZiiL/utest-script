@@ -1,10 +1,81 @@
 #ignorenext
 # shellcheck shell=bash
 
+check_color_support() {
+	case "$TERM" in
+		xterm-color|*-256color) echo true ;;
+		*) echo false ;;
+	esac
+}
+
 # shellcheck disable=2155
-declare tests=() color=$([[ "$TERM" =~ (^xterm-color$)|(-256color$) ]] &&
-                         echo true || echo false) \
+declare tests=() \
+        color=$(check_color_support) \
         silent_all=false
+
+option_silent() {
+	if (($# < 2)); then
+		echo "$0: $1: missing argument: <file>" >&2
+		echo "$USAGE"
+		exit 3
+	fi
+
+	tests+=("s$2")
+}
+
+option_silent_all() {
+	if (($# > 1)); then
+		echo "$0: $1: too many arguments: 1" >&2
+		echo "$USAGE"
+		exit 4
+	fi
+
+	silent_all=true
+}
+
+option_color() {
+	if (($# < 2)); then
+		echo "$0: $1: missing argument: <when>" >&2
+		exit 3
+	fi
+
+	case "$opt_arg" in
+		'always')
+			color=true
+			;;
+		'auto')
+			# checking if the terminal supports color
+			color=$(check_color_support)
+			;;
+		'never')
+			color=false
+			;;
+		*)
+			echo "$0: $1: $opt_arg: invalid argument: WHEN must be: 'always', 'auto' or 'never'" >&2
+			exit 7
+			;;
+	esac
+}
+
+option_help() {
+	if (($# > 1)); then
+		echo "$0: $1: too many arguments: 1" >&2
+		exit 4
+	fi
+
+	echo "$HELP"
+	exit 0
+}
+
+option_version_info() {
+	if (($# > 1)); then
+		echo "$0: $1: too many arguments: 1" >&2
+		exit 4
+	fi
+
+	echo "$VERSION_INFO"
+	exit 0
+}
 
 declare ignore_opts=false argv=("$@")
 for ((i = 0, s = $#; i < s; ++i)); do
@@ -15,84 +86,65 @@ for ((i = 0, s = $#; i < s; ++i)); do
 	elif ! $ignore_opts && [[ "$arg" =~ ^--([^=]+)(=.*)?$ ]]; then
 		declare opt="${BASH_REMATCH[1]}"
 
+		declare has_arg=false
+		declare opt_arg
 		if [[ "${BASH_REMATCH[2]}" =~ ^=(.*)$ ]]; then
-			declare opt_arg="${BASH_REMATCH[1]}"
+			has_arg=true
+			opt_arg="${BASH_REMATCH[1]}"
 		fi
 
 		case "$opt" in
-		silent)
-			if ! [ ${opt_arg+x} ]; then
-				if ((i + 1 < s)); then
+			'silent')
+				if $has_arg; then
+					option_silent "--$opt" "$opt_arg"
+				elif ((i + 1 < s)); then
 					((++i))
 					opt_arg="${argv[i]}"
+					option_silent "--$opt" "$opt_arg"
 				else
-					echo "$0: --silent: missing argument: <file>" >&2
-					echo "$USAGE"
-					exit 3
+					option_silent "--$opt"
 				fi
-			fi
-
-			tests+=("s$opt_arg")
-			;;
-		silent-all)
-			if [ ${opt_arg+x} ]; then
-				echo "$0: --help: too many arguments: 1" >&2
-				echo "$USAGE"
-				exit 4
-			fi
-			silent_all=true
-			;;
-		color)
-			if ! [ ${opt_arg+x} ]; then
-				if ((i + 1 < s)); then
-					((++i))
-					opt_arg="${argv[i]}"
-				else
-					echo "$0: --color: missing argument: <when>" >&2
-					exit 3
-				fi
-			fi
-
-			case "$opt_arg" in
-			'always') color=true ;;
-			'auto')
-				# checking if the terminal supports color
-				case "$TERM" in
-				xterm-color|*-256color) color=true ;;
-				*) color=false ;;
-				esac
 				;;
-			'never') color=false ;;
+			'silent-all')
+				if $has_arg; then
+					option_silent_all "--$opt" "$opt_arg"
+				else
+					option_silent_all "--$opt"
+				fi
+				;;
+			'color')
+				if $has_arg; then
+					option_color "--$opt" "$opt_arg"
+				elif ((i + 1 < s)); then
+					((++i))
+					opt_arg="${argv[i]}"
+					option_color "--$opt" "$opt_arg"
+				else
+					option_color "--$opt"
+				fi
+				;;
+			'help')
+				if $has_arg; then
+					option_help "--$opt" "$opt_arg"
+				else
+					option_help "--$opt"
+				fi
+				;;
+			'version')
+				if $has_arg; then
+					option_version_info "--$opt" "$opt_arg"
+				else
+					option_version_info "--$opt"
+				fi
+				;;
 			*)
-				echo "$0: --color: $opt_arg: invalid argument: WHEN must be: 'always', 'auto' or 'never'" >&2
-				exit 7
+				echo "$0: --$opt: invalid option" >&2
+				echo "$USAGE"
+				exit 5
 				;;
-			esac
-			;;
-		help)
-			if [ ${opt_arg+x} ]; then
-				echo "$0: --help: too many arguments: 1" >&2
-				exit 4
-			fi
-			echo "$HELP"
-			exit 0
-			;;
-		version)
-			if [ ${opt_arg+x} ]; then
-				echo "$0: --version: too many arguments: 1" >&2
-				exit 4
-			fi
-			echo "$VERSION_INFO"
-			exit 0
-			;;
-		*)
-			echo "$0: --$opt: invalid option" >&2
-			echo "$USAGE"
-			exit 5
-			;;
 		esac
 
-		unset -v opt_arg
+		unset -v opt_arg has_arg opt
 	elif ! $ignore_opts && [[ "$arg" =~ ^-([^-].*)$ ]]; then
 		declare optstr="${BASH_REMATCH[1]}"
 
@@ -100,87 +152,58 @@ for ((i = 0, s = $#; i < s; ++i)); do
 			declare opt="${optstr:0:1}"
 			optstr="${optstr:1}"
 
-			if [[ "${optstr:0:1}" == '-' ]]; then
-				declare opt_arg="${optstr}"
-			fi
+			declare opt_arg
 
 			case "$opt" in
-			s)
-				if ! [ ${opt_arg+x} ]; then
-					if [ "$optstr" ]; then
-						opt_arg="$optstr"
+				's')
+					if [ -n "$optstr" ]; then
 						j=l
+						opt_arg="$optstr"
+						option_silent "-$opt" "$opt_arg"
 					elif ((i + 1 < s)); then
 						((++i))
 						opt_arg="${argv[i]}"
+						option_silent "-$opt" "$opt_arg"
 					else
-						echo "$0: -s: missing argument: <file>" >&2
-						echo "$USAGE"
-						exit 3
+						option_silent "-$opt"
 					fi
-				fi
-
-				tests+=("s$opt_arg")
-				;;
-			c)
-				if ! [ ${opt_arg+x} ]; then
-					if [ "$optstr" ]; then
-						opt_arg="$optstr"
-						j=l
-					elif ((i + 1 < s)); then
-						((++i))
-						opt_arg="${argv[i]}"
-					else
-						echo "$0: -c: missing argument: <when>" >&2
-						exit 3
-					fi
-				fi
-
-				case "$opt_arg" in
-				'always') color=true ;;
-				'auto')
-					# checking if the terminal supports color
-					case "$TERM" in
-					xterm-color|*-256color) color=true ;;
-					*) color=false ;;
-					esac
 					;;
-				'never') color=false ;;
+				'c')
+					if [ -n "$optstr" ]; then
+						j=l
+						opt_arg="$optstr"
+						option_color "-$opt" "$opt_arg"
+					elif ((i + 1 < s)); then
+						((++i))
+						opt_arg="${argv[i]}"
+						option_color "-$opt" "$opt_arg"
+					else
+						option_color "-$opt"
+					fi
+					;;
+				'h'|'?')
+					option_help "-$opt"
+					;;
+				'v')
+					option_version_info "-$opt"
+					;;
 				*)
-					echo "$0: --color: $opt_arg: invalid argument: WHEN may only be: 'always', 'auto' or 'never'" >&2
-					exit 7
+					echo "$0: -$opt: invalid option" >&2
+					echo "$USAGE"
+					exit 5
 					;;
-				esac
-				;;
-			h|\?)
-				if [ ${opt_arg+x} ]; then
-					echo "$0: -h: too many arguments: 1" >&2
-					exit 4
-				fi
-				echo "$HELP"
-				exit 0
-				;;
-			v)
-				if [ ${opt_arg+x} ]; then
-					echo "$0: -v: too many arguments: 1" >&2
-					exit 4
-				fi
-				echo "$VERSION_INFO"
-				exit 0
-				;;
-			*)
-				echo "$0: -$opt: invalid option" >&2
-				echo "$USAGE"
-				exit 5
-				;;
 			esac
 
-			unset -v opt_arg
+			unset -v opt_arg opt
 		done
+
+		unset -v optstr
 	else
 		tests+=("-$arg")
 	fi
-done
-unset -v ignore_opts argv i s arg opt testc optstr j l
+
+	unset -v arg
+done; unset -v i s
+unset -v argv ignore_opts
 
 readonly tests color silent_all
