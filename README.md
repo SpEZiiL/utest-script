@@ -11,6 +11,19 @@
 
 A **Bash** script that starts unit tests.
 
+## Download ##
+
+To get the script, simply download the attached file from one of the
+[releases](https://github.com/mfederczuk/utest-script/releases).
+
+If you want to make changes to it, download the source code or clone the
+repository with
+
+	git clone https://github.com/mfederczuk/utest-script.git
+
+Modify the script however you like and call the [`assemble`](assemble) script.  
+Make sure you have [**spp**](https://github.com/mfederczuk/spp) installed.
+
 ## Usage ##
 
 1. `<script> [-m<cmd> [-A<arg>...]] ([-s] <file>)...`
@@ -43,19 +56,6 @@ displayed in a listed format.
 |   0  | all tests passed  |
 |  32  | some tests failed |
 |  33  | all tests failed  |
-
-## Download ##
-
-To get the script, simply download the attached file from one of the
-[releases](https://github.com/mfederczuk/utest-script/releases).
-
-If you want to make changes to it, download the source code or clone the
-repository with
-
-	git clone https://github.com/mfederczuk/utest-script.git
-
-Modify the script however you like and call the [`assemble`](assemble) script.  
-Make sure you have [**spp**](https://github.com/mfederczuk/spp) installed.
 
 ## Contributing ##
 
