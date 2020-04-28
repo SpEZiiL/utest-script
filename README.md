@@ -33,7 +33,7 @@ displayed in a listed format.
 
 ### Exit Status ###
 
-(using [CommonCodes v1.0.0](https://mfederczuk.github.io/commoncodes/v/1.0.0.html))
+(using [CommonCodes v2](https://mfederczuk.github.io/commoncodes/v2.html))
 
 | Code |      Message      |
 | :--: | :---------------: |

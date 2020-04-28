@@ -16,8 +16,7 @@ $USAGE
       -v, --version        show version and legal information and exit
 
     Exit Status:
-      (using CommonCodes v1.0.0
-       <https://mfederczuk.github.io/commoncodes/v/1.0.0.html>)
+      (using CommonCodes v2 <https://mfederczuk.github.io/commoncodes/v2.html>)
       0   all tests passed
       32  some tests failed
       33  all tests failed
