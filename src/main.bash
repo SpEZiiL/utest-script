@@ -58,7 +58,7 @@ _exec_test() {
 	local test="$1"
 
 	if [ -n "$command" ]; then
-		"$command" "$test"
+		"$command" "${command_args[@]}" "$test"
 	else
 		./"$test"
 	fi

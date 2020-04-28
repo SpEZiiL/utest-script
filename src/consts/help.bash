@@ -8,14 +8,16 @@ $USAGE
     displayed in a listed format.
 
     Options:
-      -s, --silent=<file>  add FILE as test but don't save the output of it
-          --silent-all     don't save the output of any test
-      -m, --command=<cmd>  pass files separately to CMD instead of executing
-                            them
-      -c, --color=<when>   when to color the output (default: auto).
-                            WHEN must be: 'always', 'auto', or 'never'
-      -h, --help           show this summary and exit
-      -V, --version        show version and legal information and exit
+      -s, --silent=<file>      add FILE as test but don't save the output of it
+          --silent-all         don't save the output of any test
+      -m, --command=<cmd>      pass files separately to CMD instead of executing
+                                them
+      -A, --command-arg=<arg>  pass ARG to CMD before the file.
+                                this option can be used multiple times
+      -c, --color=<when>       when to color the output (default: auto).
+                                WHEN must be: 'always', 'auto', or 'never'
+      -h, --help               show this summary and exit
+      -V, --version            show version and legal information and exit
 
     Exit Status:
       (using CommonCodes v2 <https://mfederczuk.github.io/commoncodes/v2.html>)
