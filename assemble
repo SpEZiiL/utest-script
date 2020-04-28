@@ -1,6 +1,6 @@
 #!/bin/sh
 # Builds the utest script using spp.
-# Copyright (C) 2019 Michael Federczuk
+# Copyright (C) 2020 Michael Federczuk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,21 +20,24 @@ if \echo "$-" | \grep -E i; then
 	\return 124
 fi
 
-if ! command -v 'spp' 1>/dev/null; then
-	echo "$0: program 'spp' is required to call this script" >&2
-	exit 48
+if ! command -v spp >/dev/null; then
+	echo "$0: spp: program missing" >&2
+	exit 27
 fi
 
-basefile='src/base.bash'
-outfile='test'
+readonly basefile='src/base.bash'
+readonly outfile='test'
 
 echo "Building file '$outfile' ..."
-if ! spp "$basefile" 1> "$outfile"; then
-	exc=$?
+
+spp "$basefile" > "$outfile"
+readonly exc=$?
+
+if [ $exc != 0 ]; then
 	echo "$0: failed building file" >&2
-	return $exc
+	exit $exc
 else
 	chmod +x "$outfile"
 	echo "Successfully built file"
-	return 0
+	exit 0
 fi

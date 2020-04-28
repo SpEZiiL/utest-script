@@ -8,16 +8,20 @@ $USAGE
     displayed in a listed format.
 
     Options:
-      -s, --silent=<file>  add FILE as test but don't save the output of it
-          --silent-all     don't save the output of any test
-      -c, --color=<when>   when to color the output (default: auto).
-                            WHEN may be: 'always', 'auto', or 'never'
-      -h, --help           show this summary and exit
-      -v, --version        show version and legal information and exit
+      -s, --silent=<file>      add FILE as test but don't save the output of it
+          --silent-all         don't save the output of any test
+      -m, --command=<cmd>      pass files separately to CMD instead of executing
+                                them
+      -A, --command-arg=<arg>  pass ARG to CMD before the file.
+                                this option can be used multiple times
+          --valgrind           use 'valgrind' as CMD
+      -c, --color=<when>       when to color the output (default: auto).
+                                WHEN must be: 'always', 'auto', or 'never'
+      -h, --help               show this summary and exit
+      -V, --version            show version and legal information and exit
 
     Exit Status:
-      (using CommonCodes v1.0.0
-       <https://mfederczuk.github.io/commoncodes/v/1.0.0.html>)
+      (using CommonCodes v2 <https://mfederczuk.github.io/commoncodes/v2.html>)
       0   all tests passed
       32  some tests failed
       33  all tests failed

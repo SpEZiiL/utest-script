@@ -1,6 +1,6 @@
 #!/bin/bash
 # Bash script for unit testing.
-# Copyright (C) 2019 Michael Federczuk
+# Copyright (C) 2020 Michael Federczuk
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
