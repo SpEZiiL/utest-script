@@ -29,6 +29,7 @@ displayed in a listed format.
 | `--silent-all`            | don't save the output of any test                                                                  |
 | `-m, --command=<cmd>`     | pass files separately to *CMD* instead of executing them                                           |
 | `-A, --command-arg=<arg>` | pass *ARG* to *CMD* before the file. <br/> this option can be used multiple times                  |
+| `--valgrind`              | use '`valgrind`' as *CMD*                                                                          |
 | `-c, --color=<when>`      | when to color the output (default: auto). <br/> *WHEN* must be: '`always`', '`auto`', or '`never`' |
 | `-h, --help`              | show this summary and exit                                                                         |
 | `-V, --version`           | show version and legal information and exit                                                        |

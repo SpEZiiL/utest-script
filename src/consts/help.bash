@@ -14,6 +14,7 @@ $USAGE
                                 them
       -A, --command-arg=<arg>  pass ARG to CMD before the file.
                                 this option can be used multiple times
+          --valgrind           use 'valgrind' as CMD
       -c, --color=<when>       when to color the output (default: auto).
                                 WHEN must be: 'always', 'auto', or 'never'
       -h, --help               show this summary and exit

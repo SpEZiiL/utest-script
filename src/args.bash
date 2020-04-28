@@ -55,6 +55,21 @@ option_command_arg() {
 	command_args+=("$2")
 }
 
+option_valgrind() {
+	if (($# > 1)); then
+		echo "$0: $1: too many arguments: 1" >&2
+		exit 4
+	fi
+
+	command='valgrind'
+	command_args=(
+		'--leak-check=full'
+		'--show-leak-kinds=all'
+		'--track-origins=yes'
+		'--error-exitcode=47'
+	)
+}
+
 option_color() {
 	if (($# < 2)); then
 		echo "$0: $1: missing argument: <when>" >&2
@@ -165,6 +180,13 @@ for ((i = 0, s = $#; i < s; ++i)); do
 					option_command_arg "--$opt" "$opt_arg"
 				else
 					option_command_arg "--$opt"
+				fi
+				;;
+			'valgrind')
+				if $has_arg; then
+					option_valgrind "--$opt" "$opt_arg"
+				else
+					option_valgrind "--$opt"
 				fi
 				;;
 			'help')
