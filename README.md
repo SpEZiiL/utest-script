@@ -13,8 +13,8 @@ A **Bash** script that starts unit tests.
 
 ## Usage ##
 
-1. `<script> ([-s] <file>)...`
-2. `<script> --silent-all <file>...`
+1. `<script> [-m<cmd> [-A<arg>...]] ([-s] <file>)...`
+2. `<script> [-m<cmd> [-A<arg>...]] --silent-all <file>...`
 
 Add every *FILE* as a test.
 

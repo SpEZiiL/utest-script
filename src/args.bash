@@ -38,6 +38,7 @@ option_silent_all() {
 option_command() {
 	if (($# < 2)); then
 		echo "$0: $1: missing argument: <cmd>" >&2
+		echo "$USAGE"
 		exit 3
 	fi
 
@@ -47,6 +48,7 @@ option_command() {
 option_command_arg() {
 	if (($# < 2)); then
 		echo "$0: $1: missing argument: <arg>" >&2
+		echo "$USAGE"
 		exit 3
 	fi
 
