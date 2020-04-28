@@ -29,7 +29,7 @@ displayed in a listed format.
 | `--silent-all`        | don't save the output of any test                                                                  |
 | `-c, --color=<when>`  | when to color the output (default: auto). <br/> *WHEN* must be: '`always`', '`auto`', or '`never`' |
 | `-h, --help`          | show this summary and exit                                                                         |
-| `-v, --version`       | show version and legal information and exit                                                        |
+| `-V, --version`       | show version and legal information and exit                                                        |
 
 ### Exit Status ###
 

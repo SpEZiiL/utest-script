@@ -184,7 +184,7 @@ for ((i = 0, s = $#; i < s; ++i)); do
 				'h'|'?')
 					option_help "-$opt"
 					;;
-				'v')
+				'V'|'v')
 					option_version_info "-$opt"
 					;;
 				*)

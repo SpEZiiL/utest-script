@@ -13,7 +13,7 @@ $USAGE
       -c, --color=<when>   when to color the output (default: auto).
                             WHEN must be: 'always', 'auto', or 'never'
       -h, --help           show this summary and exit
-      -v, --version        show version and legal information and exit
+      -V, --version        show version and legal information and exit
 
     Exit Status:
       (using CommonCodes v2 <https://mfederczuk.github.io/commoncodes/v2.html>)
